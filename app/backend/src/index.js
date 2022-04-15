@@ -55,7 +55,8 @@ const start = async() => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.use('/', express.static(path.join(__dirname, '../../frontend/src')))
+    //can be safely deleted after backend/frontend separation
+    //app.use('/', express.static(path.join(__dirname, '../../frontend/src')))
 
     app.post('/api/signin', passport.authenticate('local', { session: false }), async(request, response) => {
         let user = request.user;
