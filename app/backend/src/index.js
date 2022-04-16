@@ -7,7 +7,6 @@ const passportLocal = require('passport-local').Strategy;
 const passportHTTPBearer = require('passport-http-bearer').Strategy;
 const mongo = require('./database.js');
 const agenda = require('./agenda.js');
-const marvel = require('./marvel.js');
 const path = require('path');
 
 
@@ -67,7 +66,7 @@ const start = async() => {
             return response.send({ token: user.token });
         }); 
     });
-
+    /* funcionalidade separada --> services/marvel
     app.post('/api/search', async(request, response) => {
         let search = request.body.search;
         console.log(`[Search] ${search}`);
@@ -76,7 +75,7 @@ const start = async() => {
         let data = await marvel.searchComics(search, limit, offset);
         return response.send(data);
     });
-
+    */
     app.post('/api/local', passport.authenticate('bearer', { session: false }), async(request, response) => {
         let search = request.body.search;
         console.log(`[Local Search] ${search}`);
@@ -84,13 +83,14 @@ const start = async() => {
         return response.send(data);
     });
 
+    
     app.post('/api/series', passport.authenticate('bearer', { session: false }), async(request, response) => {
         let series = request.body.series;
         let seriesDocuments = await mongo.insertSeries(db.db, series);
         console.log("[Tracking] POST")
         return response.send(seriesDocuments);
     });
-
+    
     app.get('/api/series', passport.authenticate('bearer', { session: false }), async(request, response) => {
         let seriesDocuments = await mongo.getSeries(db.db);
         console.log("[Tracking] GET")
@@ -103,12 +103,13 @@ const start = async() => {
         return response.send(result);
     });
 
+    /* funcionalidade separada --> services/marvel
     app.get('/api/comics/:seriesID', passport.authenticate('bearer', { session: false }), async(request, response) => {
         let comicsDocuments = await mongo.getComicsForSeries(db.db, request.params.seriesID);
         console.log("[Tracking] GET")
         return response.send(comicsDocuments);
     });
-
+    */
 
     app.get('/api/statistics', async(request, response) => {
         console.log("[Statistics] GET")
