@@ -3,7 +3,7 @@ const cors = require('cors')
 const marvel = require('./marvel.js');
 
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8082;
 
 const start = async() => {
     console.log("Starting Node Server")

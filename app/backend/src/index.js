@@ -9,7 +9,7 @@ const mongo = require('./database.js');
 const path = require('path');
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 

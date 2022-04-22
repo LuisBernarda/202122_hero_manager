@@ -62,7 +62,7 @@ const start = async(mongo) => {
     await agenda.every('0 6 * * *', 'gather data');
 
     let jobs = await db.getComics(mongo.db);
-    if (jobs.length < 1) {
+    if (true) {
         await agenda.now('gather data');
     }
 
