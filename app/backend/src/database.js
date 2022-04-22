@@ -66,22 +66,28 @@ const connect = () => {
     console.log(`[MongoDB] connecting to: ${url}`);
 
     return new Promise((resolve, reject) => {
-        console.log("Connecting to " + url)
         client = new MongoClient(url, mongoDBOptions);
-        client.connect(async(err) => {
-            if (err) {
-                return reject(err);
-            }
-            console.log("Connected successfully to server");
-            db = client.db(dbName);
-            await loadDefaults(db);
-            await loadDefaultUser(db);
+        const tryToConnect = () => {
 
-            return resolve({
-                client: client,
-                db: db
-            });
-        });
+            console.log("Connecting to " + url)
+            client.connect().then(async (data) => {
+                console.log("Connected successfully to server");
+                db = client.db(dbName);
+                await loadDefaults(db);
+                await loadDefaultUser(db);
+
+                return resolve({
+                    client: client,
+                    db: db
+                });
+            }).catch((err) => {
+                console.log(err);
+                console.log("Retrying the connection...");
+                setTimeout(tryToConnect, 1000);
+            })
+        };
+        tryToConnect();
+        
     })
 }
 
