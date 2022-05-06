@@ -1,7 +1,7 @@
 //###############
 //CHANGE ME
 const BACKEND_URL = 'http://localhost:8081';
-const SERVICE_MARVEL_URL = 'http://localhost:8082';
+const MARVEL_URL = 'http://localhost:8082';
 //###############
 
 const insertSearchResult = (comic, tbody, local) => {
@@ -121,8 +121,8 @@ const searchLocalComics = async(searchTerms) => {
 }
 const queryAPI = (search, local = false, offset = 1, limit = 10) => {
     return new Promise((resolve, reject) => {
-        url = `${SERVICE_MARVEL_URL}/api/marvel/search`;
-        if (local) url = `${BACKEND_URL}/api/local`;
+        url = `${MARVEL_URL}/api/marvel/search`;
+        if (local) url = `${BACKEND_URL}/api/search`;
         const parameters = {
             search: search,
             offset: offset,

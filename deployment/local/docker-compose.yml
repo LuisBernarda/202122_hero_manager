@@ -1,0 +1,78 @@
+services:
+    hero_manager_database:
+        image: mongo
+        container_name: hero_manager_database
+        ports:
+            - "27017:27017"
+    hero_manager_backend:
+        image: hero_manager_backend_image
+        container_name: hero_manager_backend
+        build:
+            context: ../../app/backend/
+            dockerfile: ../../deployment/local/backend/Dockerfile
+        volumes:
+            - ../../app/backend/src:/app/backend/src
+        ports:
+            - "8081:8080"
+        #depends_on:
+        #    - "hero_manager_database"
+        environment:
+            - DB_HOST=hero_manager_database
+            - DB_PORT=27017
+            - DB_NAME=heroManager
+        env_file: .env
+    hero_manager_frontend:
+        image: hero_manager_frontend_image
+        container_name: hero_manager_frontend
+        build:
+            context: ../../app/frontend/
+            dockerfile: ../../deployment/local/frontend/Dockerfile
+        volumes:
+            - ../../app/frontend/src:/app/frontend/src
+        ports:
+            - "8080:8080"
+    hero_manager_marvel:
+        image: hero_manager_marvel_image
+        container_name: hero_manager_marvel
+        build:
+            context: ../../app/services/marvel/
+            dockerfile: ../../../deployment/local/services/marvel/Dockerfile
+        volumes:
+            - ../../app/services/marvel/src:/app/services/marvel/src
+        env_file: .env
+        ports:
+            - "8082:8080"
+        environment:
+            - MARVEL_URL=https://gateway.marvel.com
+    hero_manager_statistics:
+        image: hero_manager_statistics_image
+        container_name: hero_manager_statistics
+        build:
+            context: ../../app/services/statistics/
+            dockerfile: ../../../deployment/local/services/statistics/Dockerfile
+        volumes:
+            - ../../app/services/statistics/src:/app/services/statistics/src
+        ports:
+            - "8083:8080"
+        #depends_on:
+        #    - "hero_manager_database"
+        environment:
+            - DB_HOST=hero_manager_database
+            - DB_PORT=27017
+            - DB_NAME=heroManager
+    hero_manager_scheduler:
+        image: hero_manager_scheduler_image
+        container_name: hero_manager_scheduler
+        build:
+            context: ../../app/services/scheduler/
+            dockerfile: ../../../deployment/local/services/scheduler/Dockerfile
+        volumes:
+            - ../../app/services/scheduler/src:/app/services/scheduler/src
+        ports:
+            - "8084:8080"
+        #depends_on:
+        #    - "hero_manager_database"
+        environment:
+            - DB_HOST=hero_manager_database
+            - DB_PORT=27017
+            - DB_NAME=heroManager

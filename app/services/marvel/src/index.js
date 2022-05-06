@@ -3,13 +3,14 @@ const cors = require('cors')
 const marvel = require('./marvel.js');
 
 
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT || 8080;
 
 const start = async() => {
     console.log("Starting Node Server")
     const app = express();
 
     app.use(cors())
+
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
@@ -23,7 +24,8 @@ const start = async() => {
     });
 
     app.post('/api/marvel/comics/:seriesID', async(request, response) => {
-        let comicsDocuments = await marvel.getComicsForSeries({id: request.params.seriesID});
+        console.log(request.params.seriesID)
+        let comicsDocuments = await marvel.getComicsForSeries(request.params.seriesID);
         console.log("[Tracking] GET")
         return response.send(comicsDocuments);
     });

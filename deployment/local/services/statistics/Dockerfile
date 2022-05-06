@@ -1,10 +1,10 @@
-FROM node
+FROM node:alpine
 
 WORKDIR /app/services/statistics
 
-COPY package.json .
-
-RUN npm install 
 RUN npm install -g nodemon
+
+COPY package.json .
+RUN npm install
 
 ENTRYPOINT [ "nodemon", "src/" ]

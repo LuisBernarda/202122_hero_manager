@@ -2,9 +2,9 @@ FROM node:alpine
 
 WORKDIR /app/backend
 
+COPY backend/package.json .
 RUN npm install -g nodemon
 
-COPY backend/package.json .
 
 RUN npm install
 

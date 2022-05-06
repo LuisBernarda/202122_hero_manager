@@ -72,7 +72,7 @@ exports.searchComics = (search, limit, offset) => {
 }
 exports.getComicsForSeries = (series) => {
     return new Promise((resolve, reject) => {
-        const url = `${MARVEL_URL}/v1/public/series/${series.id}/comics`;
+        const url = `${MARVEL_URL}/v1/public/series/${series}/comics`;
 
         const requestOptions = {
             url: url,
