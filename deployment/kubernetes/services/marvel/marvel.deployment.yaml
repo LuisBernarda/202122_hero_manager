@@ -21,7 +21,7 @@ spec:
           ports:
             - containerPort: 8082
           resources: {}
-         env:
+          env:
             - name: MARVEL_URL
               value: https://gateway.marvel.com
             - name: MARVEL_PUBLIC_KEY
