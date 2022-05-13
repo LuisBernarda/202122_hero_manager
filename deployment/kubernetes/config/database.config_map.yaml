@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: hero-manager-database-configmap
+  namespace: default
+data:
+  # Configuration Values are stored as key-value pairs
+  DB_HOST: "hero-manager-database"
+  DB_PORT: "27017"
+  DB_NAME: heroManager
