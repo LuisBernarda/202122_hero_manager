@@ -21,13 +21,19 @@ spec:
           ports:
             - containerPort: 8082
           resources: {}
-          env:
+         env:
             - name: MARVEL_URL
               value: https://gateway.marvel.com
             - name: MARVEL_PUBLIC_KEY
-              value: ab83d67abc3936686244374fe48adca2
+              valueFrom:
+                secretKeyRef:
+                  name: marvel-api-public-key
+                  key: public
             - name: MARVEL_PRIVATE_KEY
-              value: 18f66f9412b650d0b0cd8fecfb611b4a69d729bd
+              valueFrom:
+                secretKeyRef:
+                  name: marvel-api-private-key
+                  key: private
             - name: PORT
               value: "8082"
 
