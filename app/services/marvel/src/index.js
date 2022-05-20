@@ -30,6 +30,9 @@ const start = async() => {
         return response.send(comicsDocuments);
     });
 
+    app.get('/', (request, response) => {
+        return response.status(200).send('Healthy!');
+    });
     app.listen(PORT, () => console.log(`Marvel Hero Manager API listening on port ${PORT}`));
 }
 start();

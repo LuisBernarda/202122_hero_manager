@@ -1,0 +1,16 @@
+resources:
+  - config/database.config_map.yaml
+  - config/marvel-api-public-key.secret.yaml
+  - config/marvel-api-private-key.secret.yaml
+  - services/backend/backend.deployment.yaml
+  - services/backend/backend.service.yaml
+  - services/database/database.deployment.yaml
+  - services/database/database.service.yaml
+  - services/frontend/frontend.deployment.yaml
+  - services/frontend/frontend.service.yaml
+  - services/marvel/marvel.deployment.yaml
+  - services/marvel/marvel.service.yaml
+  - services/scheduler/scheduler.deployment.yaml
+  - services/scheduler/scheduler.service.yaml
+  - services/statistics/statistics.deployment.yaml
+  - services/statistics/statistics.service.yaml

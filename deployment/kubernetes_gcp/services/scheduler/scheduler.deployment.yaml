@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hero-manager-scheduler
+  labels:
+    name: hero-manager-scheduler
+spec:
+  selector:
+    matchLabels:
+      name: hero-manager-scheduler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: hero-manager-scheduler
+    spec:
+      containers:
+        - name: hero-manager-scheduler
+          image: gcr.io/hero-manager2210610/hero_manager_scheduler_image:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8084
+          resources: {}
+          env:
+            - name: PORT
+              value: "8081"
+            - name: MARVEL_API_URL
+              value: http://hero-manager-marvel:8082
+            - name: STATISTICS_API_URL
+              value: http://hero-manager-statistics:8083
+          envFrom:
+            - configMapRef:
+                name: hero-manager-database-configmap

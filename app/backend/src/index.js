@@ -51,7 +51,8 @@ const start = async() => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.use('/', express.static(path.join(__dirname, '../../frontend/src')))
+    //retira-se para cloud deployment
+    //app.use('/', express.static(path.join(__dirname, '../../frontend/src')))
 
     app.post('/api/signin', passport.authenticate('local', { session: false }), async(request, response) => {
         let user = request.user;
@@ -106,6 +107,9 @@ const start = async() => {
         return response.send(await mongo.getStatisticsLatest(db.db));
     });
 
+    app.get('/', (request, response) => {
+        return response.status(200).send('Healthy!');
+    });
     app.listen(PORT, () => console.log(`Marvel Hero Manager API listening on port ${PORT}`));
 }
 start();

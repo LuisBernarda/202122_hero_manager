@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hero-manager-ingress
+  annotations:
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/marvel/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hero-manager-marvel
+                port:
+                  number: 8082
+          - path: /api/statistics
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hero-manager-statistics
+                port:
+                  number: 8083
+          - path: /api/statistics/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hero-manager-statistics
+                port:
+                  number: 8083
+          - path: /api/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hero-manager-backend
+                port:
+                  number: 8081
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hero-manager-frontend
+                port: 
+                  number: 8080
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hero-manager-frontend
+                port: 
+                  number: 8080
+          

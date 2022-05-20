@@ -1,0 +1,26 @@
+services:
+    hero_manager_marvel:
+        image: gcr.io/hero-manager2210610/hero_manager_marvel_image:1.0.0
+        build:
+            context: ../../app/services/marvel/
+            dockerfile: ../../../deployment/kubernetes/services/marvel/Dockerfile
+    hero_manager_frontend:
+        image: gcr.io/hero-manager2210610/hero_manager_frontend_image:1.0.0
+        build:
+            context: ../../app/frontend/
+            dockerfile: ../../deployment/kubernetes/services/frontend/Dockerfile
+    hero_manager_backend:
+        image: gcr.io/hero-manager2210610/hero_manager_backend_image:1.0.0
+        build:
+            context: ../../app/backend/
+            dockerfile: ../../deployment/kubernetes/services/backend/Dockerfile
+    hero_manager_statistics:
+        image: gcr.io/hero-manager2210610/hero_manager_statistics_image:1.0.0
+        build:
+            context: ../../app/services/statistics/
+            dockerfile: ../../../deployment/kubernetes/services/statistics/Dockerfile
+    hero_manager_scheduler:
+        image: gcr.io/hero-manager2210610/hero_manager_scheduler_image:1.0.0
+        build:
+            context: ../../app/services/scheduler/
+            dockerfile: ../../../deployment/kubernetes/services/scheduler/Dockerfile
